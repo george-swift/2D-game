@@ -1,3 +1,4 @@
+import State from './state.js';
 import Vec from './vector.js';
 
 class Coin {
@@ -19,5 +20,23 @@ class Coin {
 }
 
 Coin.prototype.size = new Vec(0.6, 0.6);
+
+Coin.prototype.collide = function vanish(state) {
+  const filtered = state.actors.filter((a) => a !== this);
+  let { status } = state;
+
+  if (!filtered.some((a) => a.type === 'coin')) status = 'won';
+
+  return new State(state.level, filtered, status);
+};
+
+const wobbleSpeed = 8;
+const wobbleDist = 0.07;
+
+Coin.prototype.update = function update(time) {
+  const wobble = this.wobble + time * wobbleSpeed;
+  const wobblePos = Math.sin(wobble) * wobbleDist;
+  return new Coin(this.basePos.plus(new Vec(0, wobblePos)), this.basePos, wobble);
+};
 
 export default Coin;
