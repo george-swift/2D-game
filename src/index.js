@@ -4,6 +4,8 @@ import State from './modules/state.js';
 import DOMDisplay from './modules/domDisplay.js';
 import GAME_LEVELS from './modules/gameLevels.js';
 
+const container = document.querySelector('#container');
+
 const trackKeys = (keys) => {
   const down = Object.create(null);
 
@@ -36,7 +38,7 @@ const runAnimation = (frameFunc) => {
 };
 
 const runLevel = (level, Display) => {
-  const display = new Display(document.body, level);
+  const display = new Display(container, level);
   let state = State.start(level);
   let ending = 1;
 
