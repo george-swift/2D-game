@@ -11,7 +11,7 @@ const elt = (name, attrs, ...children) => {
   return dom;
 };
 
-const scale = 20;
+const scale = 40;
 
 const drawGrid = (level) => elt('table', {
   class: 'background',
